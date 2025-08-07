@@ -1,0 +1,96 @@
+# Universal Subtitle Downloader Requirements
+# 通用字幕下载器依赖包
+
+# Core web and async libraries
+aiohttp==3.8.6
+aiofiles==23.2.1
+asyncio-throttle==1.0.2
+
+# Video processing and downloading
+yt-dlp==2023.11.16
+ffmpeg-python==0.2.0
+
+# AI and Machine Learning
+openai-whisper==20231117
+SpeechRecognition==3.10.0
+librosa==0.10.1
+soundfile==0.12.1
+numpy==1.24.3
+torch==2.1.1  # for Whisper
+torchaudio==2.1.1  # for Whisper
+
+# Translation services
+googletrans==4.0.0rc1
+deep-translator==1.11.4
+
+# Data processing and parsing
+beautifulsoup4==4.12.2
+lxml==4.9.3
+requests==2.31.0
+urllib3==2.0.7
+
+# File format handling
+python-dotenv==1.0.0
+pyyaml==6.0.1
+xmltodict==0.13.0
+
+# CLI and logging
+click==8.1.7
+colorama==0.4.6
+tqdm==4.66.1
+rich==13.6.0
+
+# Database (optional)
+sqlalchemy==2.0.23
+alembic==1.13.1
+
+# Testing and development
+pytest==7.4.3
+pytest-asyncio==0.21.1
+pytest-cov==4.1.0
+black==23.10.1
+flake8==6.1.0
+mypy==1.7.0
+
+# Additional utilities
+python-magic==0.4.27  # File type detection
+chardet==5.2.0  # Character encoding detection
+dateutil==2.8.2  # Date parsing
+humanfriendly==10.0  # Human readable file sizes
+
+# Optional: GPU acceleration for AI
+# torch-audio  # Already included above
+# cuda-toolkit  # System package, not Python package
+
+# Optional: Additional subtitle formats
+# pysrt==1.1.2  # Already handled by our format converter
+# webvtt-py==0.4.6  # Already handled by our format converter
+
+# Platform-specific extractors (some may be included in yt-dlp)
+# instagram-scraper==1.12.1  # For enhanced Instagram support
+# twitter-scraper==0.4.4  # For enhanced Twitter support
+
+# Proxy and network utilities
+socks==1.7.1  # SOCKS proxy support
+urllib3[socks]==2.0.7  # SOCKS proxy support for urllib3
+
+# Memory and performance optimization
+psutil==5.9.6  # System and process utilities
+memory-profiler==0.61.0  # Memory usage profiling
+
+# Configuration and settings
+pydantic==2.5.0  # Data validation
+configparser==6.0.0  # Enhanced config parsing
+
+# Logging enhancements
+structlog==23.2.0  # Structured logging
+loguru==0.7.2  # Enhanced logging
+
+# Optional: Web interface dependencies (if needed)
+# fastapi==0.104.1
+# uvicorn==0.24.0
+# jinja2==3.1.2
+
+# Optional: Monitoring and metrics
+# prometheus-client==0.19.0
+# opencensus==0.11.4

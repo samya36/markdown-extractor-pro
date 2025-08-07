@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>视频字幕下载器测试</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        .container { max-width: 800px; }
+        input[type="url"] { width: 70%; padding: 10px; }
+        button { padding: 10px 20px; }
+        .result { margin-top: 20px; padding: 15px; background: #f5f5f5; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎬 视频字幕下载器测试</h1>
+        <div>
+            <input type="url" id="videoUrl" placeholder="输入视频链接...">
+            <button onclick="getVideoInfo()">获取视频信息</button>
+        </div>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        async function getVideoInfo() {
+            const url = document.getElementById('videoUrl').value;
+            if (!url) return;
+            
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '正在获取视频信息...';
+            
+            try {
+                const response = await fetch('http://localhost:8000/api/video/info', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        url: url,
+                        languages: ['zh-CN', 'en']
+                    })
+                });
+                
+                const data = await response.json();
+                if (data.success) {
+                    const info = data.data;
+                    resultDiv.innerHTML = `
+                        <h3>视频信息：</h3>
+                        <p><strong>标题：</strong>${info.title}</p>
+                        <p><strong>作者：</strong>${info.uploader}</p>
+                        <p><strong>时长：</strong>${Math.floor(info.duration/60)}:${(info.duration%60).toFixed(0).padStart(2,'0')}</p>
+                        <p><strong>观看次数：</strong>${info.view_count?.toLocaleString() || 'N/A'}</p>
+                        <p><strong>现有字幕：</strong>${info.has_subtitles ? '有' : '无'}</p>
+                        <p><strong>可用语言：</strong>${info.available_subtitles.join(', ') || '无'}</p>
+                        <p><strong>自动字幕：</strong>${info.automatic_captions.join(', ') || '无'}</p>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `<p style="color: red;">错误：${JSON.stringify(data)}</p>`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<p style="color: red;">错误：${error.message}</p>`;
+            }
+        }
+    </script>
+</body>
+</html>
