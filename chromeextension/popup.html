@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Markdown Extractor Pro</title>
+    <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="title">
+                <span class="icon">📄</span>
+                Markdown Extractor Pro
+            </h1>
+            <div class="subtitle">智能提取网页内容</div>
+        </header>
+
+        <section class="current-page">
+            <div class="page-info">
+                <span class="page-icon">📍</span>
+                <span class="page-url" id="currentUrl">加载中...</span>
+            </div>
+        </section>
+
+        <section class="extraction-mode" id="extractionMode">
+            <div class="mode-header">
+                <span class="mode-icon">🎯</span>
+                <span class="mode-title">提取模式</span>
+            </div>
+            <div class="mode-options mode-selection">
+                <label class="mode-option">
+                    <input type="radio" name="mode" value="current" checked>
+                    <span class="option-content">
+                        <span class="option-title">当前页面</span>
+                        <span class="option-desc">仅提取当前页面内容</span>
+                    </span>
+                </label>
+                <label class="mode-option">
+                    <input type="radio" name="mode" value="smart">
+                    <span class="option-content">
+                        <span class="option-title">智能识别</span>
+                        <span class="option-desc">自动检测专栏和链接结构</span>
+                    </span>
+                </label>
+                <label class="mode-option">
+                    <input type="radio" name="mode" value="deep">
+                    <span class="option-content">
+                        <span class="option-title">深度提取</span>
+                        <span class="option-desc">提取所有链接的完整内容</span>
+                    </span>
+                </label>
+            </div>
+        </section>
+
+        <section class="main-action">
+            <button class="extract-btn" id="extractBtn">
+                <span class="btn-icon">🚀</span>
+                <span class="btn-text">开始提取</span>
+            </button>
+        </section>
+        
+        <section class="detected-layout" id="detectedLayout" style="display: none;">
+            <div class="layout-header">
+                <span class="layout-icon">📊</span>
+                <span class="layout-title">检测到的页面结构</span>
+            </div>
+            <div class="layout-info" id="layoutInfo"></div>
+            <div class="links-preview" id="linksPreview"></div>
+        </section>
+
+        <section class="preview-section" id="previewSection" style="display: none;">
+            <div class="preview-header">
+                <span class="preview-icon">📝</span>
+                <span class="preview-title">Markdown预览</span>
+            </div>
+            <div class="preview-content" id="previewContent">
+                <pre><code id="markdownPreview"></code></pre>
+            </div>
+        </section>
+
+        <section class="action-buttons" id="actionButtons" style="display: none;">
+            <button class="action-btn copy-btn" id="copyBtn">
+                <span class="action-icon">📋</span>
+                <span>复制</span>
+            </button>
+            <button class="action-btn save-btn" id="saveBtn">
+                <span class="action-icon">💾</span>
+                <span>保存</span>
+            </button>
+            <button class="action-btn settings-btn" id="settingsBtn">
+                <span class="action-icon">⚙️</span>
+                <span>设置</span>
+            </button>
+        </section>
+        
+        <section class="image-progress" id="imageProgress" style="display: none;">
+            <div class="progress-header">
+                <span class="progress-icon">🖼️</span>
+                <span class="progress-title">图片下载进度</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text" id="progressText">0 / 0</div>
+        </section>
+
+        <section class="settings-panel" id="settingsPanel" style="display: none;">
+            <div class="settings-header">高级选项</div>
+            <div class="settings-options">
+                <label class="option-item">
+                    <input type="checkbox" id="preserveStyle" checked>
+                    <span>保留原始样式（字体/间距/颜色）</span>
+                </label>
+                <label class="option-item">
+                    <input type="checkbox" id="extractImages" checked>
+                    <span>提取图片链接</span>
+                </label>
+                <label class="option-item">
+                    <input type="checkbox" id="cleanAds" checked>
+                    <span>清理广告和弹窗</span>
+                </label>
+                <label class="option-item">
+                    <input type="checkbox" id="preserveTables" checked>
+                    <span>保持表格格式</span>
+                </label>
+                <label class="option-item">
+                    <input type="checkbox" id="includeCodeHighlight" checked>
+                    <span>包含代码高亮</span>
+                </label>
+                <label class="option-item">
+                    <input type="checkbox" id="saveImages">
+                    <span>下载并保存图片到本地</span>
+                </label>
+            </div>
+        </section>
+
+        <section class="status-bar" id="statusBar">
+            <div class="status-content">
+                <span class="status-icon">ℹ️</span>
+                <span class="status-text" id="statusText">准备就绪</span>
+            </div>
+            <div class="status-stats" id="statusStats" style="display: none;">
+                <span class="stat-item">字数: <span id="wordCount">0</span></span>
+                <span class="stat-item">图片: <span id="imageCount">0</span></span>
+            </div>
+        </section>
+    </div>
+
+    <script src="popup.js"></script>
+</body>
+</html>
